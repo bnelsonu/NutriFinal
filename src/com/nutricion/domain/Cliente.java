@@ -1,22 +1,26 @@
 package com.nutricion.domain;
 
+/**
+ * @author brian.nelson.ulloa
+ * Clase de persistencia cliente
+ * ORM de la clase Cliente
+ */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.hibernate.annotations.Check;
 
-
+import com.nutricion.util.NutricionUtil;
 
 @Entity
 @Table(name="CLIENTE")
 public class Cliente {
-
+/**Variables Globales Cliente*/
 	@Id 
 	@Column(name="CODIGO_CLIENTE")
 	@GeneratedValue
-	private int codigoCliente;
+	private Integer codigoCliente;
 	@Column(name="NOMBRE",columnDefinition="VARCHAR(50)",nullable=false)
 	private String nombre;
 	@Column(name="APELLIDO1",columnDefinition="VARCHAR(50)",nullable=false)
@@ -24,7 +28,7 @@ public class Cliente {
 	@Column(name="APELLIDO2",columnDefinition="VARCHAR(50)",nullable=false)
 	private String apellido2;
 	@Column(name="EDAD",nullable=false)
-	private int edad;
+	private Integer edad;
 	@Column(name="NACIONALIDAD",columnDefinition="VARCHAR(50)",nullable=false)
 	private String nacionalidad;
 	@Column(name="OCUPACION",columnDefinition="VARCHAR(50)")
@@ -33,27 +37,27 @@ public class Cliente {
 	private String lugarTrabajo;
 	@Column(name="MED_SUP_ANTICONCEPTIVOS",columnDefinition="VARCHAR(250)")
 	private String medSupAnticonceptivos;
-	@Column(name="CORREO",columnDefinition="VARCHAR(100)")
+	@Column(name="CORREO",columnDefinition="VARCHAR(50)")
 	private String correo;
 	@Column(name="FUMADO",nullable=false)
-	private boolean fumado;
+	private Boolean fumado;
 	@Column(name="BEBIDAS_ALCOHOLICAS",nullable=false)
-	private boolean bebidasAlcoholicas;
+	private Boolean bebidasAlcoholicas;
 	@Column(name="DEPORTES_AFICIONES",columnDefinition="VARCHAR(250)")
-	private boolean deportesAficiones;
+	private String deportesAficiones;
 	@Column(name="FRECUENCIA_EJERCICIO",columnDefinition="VARCHAR(250)")
 	private String frecuenciaEjercicio;
 	@Column(name="ESTILO_VIDA",nullable=false)
-	@Check(constraints = "ESTILO_VIDA in ('Activo','Sedentario')")
 	private String estiloVida;
 	@Column(name="DIETAS_PREVIAS",columnDefinition="VARCHAR(250)",nullable=false)
 	private String dietasPrevias;
 	@Column(name="METAS_GIMNASIO",columnDefinition="VARCHAR(250)",nullable=false)
 	private String metasGimnasio;
-	public int getCodigoCliente() {
+	
+	public Integer getCodigoCliente() {
 		return codigoCliente;
 	}
-	public void setCodigoCliente(int codigoCliente) {
+	public void setCodigoCliente(Integer codigoCliente) {
 		this.codigoCliente = codigoCliente;
 	}
 	public String getNombre() {
@@ -74,10 +78,10 @@ public class Cliente {
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 	public String getNacionalidad() {
@@ -104,16 +108,16 @@ public class Cliente {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public boolean isFumado() {
+	public Boolean isFumado() {
 		return fumado;
 	}
-	public void setFumado(boolean fumado) {
+	public void setFumado(Boolean fumado) {
 		this.fumado = fumado;
 	}
-	public boolean isBebidasAlcoholicas() {
+	public Boolean isBebidasAlcoholicas() {
 		return bebidasAlcoholicas;
 	}
-	public void setBebidasAlcoholicas(boolean bebidasAlcoholicas) {
+	public void setBebidasAlcoholicas(Boolean bebidasAlcoholicas) {
 		this.bebidasAlcoholicas = bebidasAlcoholicas;
 	}
 	public String getFrecuenciaEjercicio() {
@@ -125,8 +129,13 @@ public class Cliente {
 	public String getEstiloVida() {
 		return estiloVida;
 	}
-	public void setEstiloVida(String estiloVida) {
-		this.estiloVida = estiloVida;
+	public void setEstiloVida(String estiloVida) throws Exception {
+		if (estiloVida.equalsIgnoreCase(NutricionUtil.EstiloVida.SEDENTARIO.getEstiloVida()) ||
+				estiloVida.equalsIgnoreCase(NutricionUtil.EstiloVida.ACTIVO.getEstiloVida())) {
+			this.estiloVida = estiloVida;
+		}
+		else throw new Exception ();
+		
 	}
 	public String getMedSupAnticonceptivos() {
 		return medSupAnticonceptivos;
@@ -134,10 +143,10 @@ public class Cliente {
 	public void setMedSupAnticonceptivos(String medSupAnticonceptivos) {
 		this.medSupAnticonceptivos = medSupAnticonceptivos;
 	}
-	public boolean isDeportesAficiones() {
+	public String isDeportesAficiones() {
 		return deportesAficiones;
 	}
-	public void setDeportesAficiones(boolean deportesAficiones) {
+	public void setDeportesAficiones(String deportesAficiones) {
 		this.deportesAficiones = deportesAficiones;
 	}
 	public String getMetasGimnasio() {
