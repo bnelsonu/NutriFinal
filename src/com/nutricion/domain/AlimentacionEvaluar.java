@@ -1,9 +1,15 @@
 package com.nutricion.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name="ALIMENTACION_EVALUAR")
 public class AlimentacionEvaluar {
 	@Id 
 	@Column(name="CODIGO_ALIMENTACION_EVALUAR")
@@ -26,6 +32,11 @@ public class AlimentacionEvaluar {
 	@Column(name="HIDRATACION",columnDefinition="VARCHAR(250)",nullable=false)
     String hidratacion;
     
+	//relacion con cliente
+	@OneToOne(cascade=CascadeType.ALL)  
+    @JoinColumn(name="CODIGO_CLIENTE")  
+	Cliente cliente;
+	
 	public String getDesayuno() {
 		return desayuno;
 	}
@@ -79,5 +90,11 @@ public class AlimentacionEvaluar {
 	}
 	public void setCodigoAlimentacionEvaluar(Integer codigoAlimentacionEvaluar) {
 		this.codigoAlimentacionEvaluar = codigoAlimentacionEvaluar;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

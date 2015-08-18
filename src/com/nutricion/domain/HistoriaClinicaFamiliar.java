@@ -1,9 +1,15 @@
 package com.nutricion.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name="HISTORIA_CLINICA_FAMILIAR")
 public class HistoriaClinicaFamiliar {
 
 	@Id 
@@ -30,6 +36,12 @@ public class HistoriaClinicaFamiliar {
 	Boolean ca;
 	@Column(name="OTROS",columnDefinition="VARCHAR(250)")
 	String otros;
+	
+	//relacion con cliente
+	@OneToOne(cascade=CascadeType.ALL)  
+    @JoinColumn(name="CODIGO_CLIENTE")  
+	Cliente cliente;
+	
 	public Integer getCodigoHistoriaClinicaFamiliar() {
 		return codigoHistoriaClinicaFamiliar;
 	}
@@ -96,5 +108,11 @@ public class HistoriaClinicaFamiliar {
 	}
 	public void setOtros(String otros) {
 		this.otros = otros;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

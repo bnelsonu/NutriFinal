@@ -5,10 +5,12 @@ package com.nutricion.domain;
  * Clase de persistencia cliente
  * ORM de la clase Cliente
  */
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.nutricion.util.NutricionUtil;
@@ -53,6 +55,22 @@ public class Cliente {
 	private String dietasPrevias;
 	@Column(name="METAS_GIMNASIO",columnDefinition="VARCHAR(250)",nullable=false)
 	private String metasGimnasio;
+	
+	//relaciones con otras entidades
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
+	AlimentacionEvaluar alimentacionEvaluar;
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
+	ConductasRelSalud  conductasRelSalud;
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
+	HistoriaClinicaFamiliar  historiaClinicaFamiliar;
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
+	HistoriaClinicaPersonal  historiaClinicaPersonal;
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
+	ValoracionDietetica  valoracionDietetica;
 	
 	public Integer getCodigoCliente() {
 		return codigoCliente;
@@ -161,4 +179,46 @@ public class Cliente {
 	public void setDietasPrevias(String dietasPrevias) {
 		this.dietasPrevias = dietasPrevias;
 	}
+	public Boolean getFumado() {
+		return fumado;
+	}
+	public Boolean getBebidasAlcoholicas() {
+		return bebidasAlcoholicas;
+	}
+	public String getDeportesAficiones() {
+		return deportesAficiones;
+	}
+	public AlimentacionEvaluar getAlimentacionEvaluar() {
+		return alimentacionEvaluar;
+	}
+	public void setAlimentacionEvaluar(AlimentacionEvaluar alimentacionEvaluar) {
+		this.alimentacionEvaluar = alimentacionEvaluar;
+	}
+	public ConductasRelSalud getConductasRelSalud() {
+		return conductasRelSalud;
+	}
+	public void setConductasRelSalud(ConductasRelSalud conductasRelSalud) {
+		this.conductasRelSalud = conductasRelSalud;
+	}
+	public HistoriaClinicaFamiliar getHistoriaClinicaFamiliar() {
+		return historiaClinicaFamiliar;
+	}
+	public void setHistoriaClinicaFamiliar(
+			HistoriaClinicaFamiliar historiaClinicaFamiliar) {
+		this.historiaClinicaFamiliar = historiaClinicaFamiliar;
+	}
+	public HistoriaClinicaPersonal getHistoriaClinicaPersonal() {
+		return historiaClinicaPersonal;
+	}
+	public void setHistoriaClinicaPersonal(
+			HistoriaClinicaPersonal historiaClinicaPersonal) {
+		this.historiaClinicaPersonal = historiaClinicaPersonal;
+	}
+	public ValoracionDietetica getValoracionDietetica() {
+		return valoracionDietetica;
+	}
+	public void setValoracionDietetica(ValoracionDietetica valoracionDietetica) {
+		this.valoracionDietetica = valoracionDietetica;
+	}
+	
 }
