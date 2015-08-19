@@ -20,5 +20,6 @@
 		 <mapping class="com.nutricion.domain.HistoriaClinicaFamiliar"></mapping>
 		 <mapping class="com.nutricion.domain.HistoriaClinicaPersonal"></mapping>
 		  <mapping class="com.nutricion.domain.ValoracionDietetica"></mapping>
+		  <mapping class="com.nutricion.domain.Telefono"></mapping>
 	</session-factory>
 </hibernate-configuration>

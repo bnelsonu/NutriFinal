@@ -3,6 +3,9 @@
  */
 package com.nutricion.test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +16,7 @@ import com.nutricion.domain.AlimentacionEvaluar;
 import com.nutricion.domain.Cliente;
 import com.nutricion.domain.HistoriaClinicaFamiliar;
 import com.nutricion.domain.HistoriaClinicaPersonal;
+import com.nutricion.domain.Telefono;
 import com.nutricion.domain.ValoracionDietetica;
 /**
  * @author brian.nelson.ulloa
@@ -50,6 +54,13 @@ public class DomainTest {
 		    		+ "cafe con queque, en la noche casado con pollo, antes de dormir cereal");
 		    cliente1.setMetasGimnasio("Bajar la grasa y aumentar masa muscular");
 		    
+		    //Telefonos
+		    Telefono telefono1 = new Telefono();
+		    telefono1.setNumeroTelefonico("25564833");
+		   
+		    Telefono telefono2 = new Telefono();
+		    telefono2.setNumeroTelefonico("87103425");
+		   
 		    //Alimentacion a Evaluar
 		    AlimentacionEvaluar alimentacionEvaluar = new AlimentacionEvaluar();
 		    alimentacionEvaluar.setDesayuno("pinto con huevo");
@@ -60,7 +71,7 @@ public class DomainTest {
 		    alimentacionEvaluar.setCoalicionNocturna("cereal integral");
 		    alimentacionEvaluar.setComidasRapidas("3 veces a la semana");
 		    alimentacionEvaluar.setHidratacion("tomo 8 vasos de agua al dia");
-		    alimentacionEvaluar.setCliente(cliente1);
+		    alimentacionEvaluar.setCliente(cliente1);//asignar al cliente
 		    
 		    HistoriaClinicaFamiliar historiaClinicaFamiliar = new HistoriaClinicaFamiliar();
 		    historiaClinicaFamiliar.setCa(false);
@@ -73,7 +84,7 @@ public class DomainTest {
 		    historiaClinicaFamiliar.setProblemasCardiovasculares(false);
 		    historiaClinicaFamiliar.setDm(false);
 		    historiaClinicaFamiliar.setTiroides(false);
-		    historiaClinicaFamiliar.setCliente(cliente1);
+		    historiaClinicaFamiliar.setCliente(cliente1);//asignar al cliente
 		    
 		    HistoriaClinicaPersonal historiaClinicaPersonal = new HistoriaClinicaPersonal();
 		    historiaClinicaPersonal.setAcidoUrico(false);
@@ -117,19 +128,21 @@ public class DomainTest {
 		    historiaClinicaPersonal.setTiroides(false);
 		    historiaClinicaPersonal.setVarices(false);
 		    historiaClinicaPersonal.setVision(false);
-		    historiaClinicaPersonal.setCliente(cliente1);
+		    historiaClinicaPersonal.setCliente(cliente1);//asignar al cliente
 		    
 		    ValoracionDietetica valoracionDietetica = new ValoracionDietetica();
 		    valoracionDietetica.setAlimentosPreferidos("pizza con peperoni");
 		    valoracionDietetica.setAlimentosQueNoConsume("frutas acidas");
 		    valoracionDietetica.setPreparadorDeAlimentos("Empleada Domestica");
-		    valoracionDietetica.setCliente(cliente1);
+		    valoracionDietetica.setCliente(cliente1);//asignar al cliente
 		    
+		    //asignar los objetos al cliente
 		    cliente1.setAlimentacionEvaluar(alimentacionEvaluar);
 		    cliente1.setHistoriaClinicaFamiliar(historiaClinicaFamiliar);
 		    cliente1.setHistoriaClinicaPersonal(historiaClinicaPersonal);
 		    cliente1.setValoracionDietetica(valoracionDietetica);
-		    
+		    cliente1.getTelefonos().add(telefono1);
+		    cliente1.getTelefonos().add(telefono2);
 		    session.save(cliente1);
 	        
 	        tx.commit();

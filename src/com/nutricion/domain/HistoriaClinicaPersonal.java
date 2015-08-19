@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -14,7 +15,7 @@ public class HistoriaClinicaPersonal {
 
 	@Id 
 	@Column(name="CODIGO_HISTORIA_CLINICA_PERSONAL")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer codigoHistoriaClinicaPersonal;
 	@Column(name="HERNIA_HITAL",nullable=false)
 	Boolean herniaHiatal;

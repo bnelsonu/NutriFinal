@@ -1,16 +1,28 @@
 package com.nutricion.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="TELEFONO")
 public class Telefono {
 	@Id 
 	@Column(name="CODIGO_TELEFONO")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer codigoTelefono;
-	@Column(name="OTROS",columnDefinition="VARCHAR(7)")
+	@Column(name="NUMERO_TELEFONICO",columnDefinition="VARCHAR(8)")
 	String numeroTelefonico;
+	
+	@ManyToMany(mappedBy = "telefonos")
+	private Set<Cliente> clientes = new HashSet<Cliente>();
 	
 	public Integer getCodigoTelefono() {
 		return codigoTelefono;
@@ -24,5 +36,10 @@ public class Telefono {
 	public void setNumeroTelefonico(String numeroTelefonico) {
 		this.numeroTelefonico = numeroTelefonico;
 	}
-	
+	public Set<Cliente> getClientes() {
+		return clientes;
+	}
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 }

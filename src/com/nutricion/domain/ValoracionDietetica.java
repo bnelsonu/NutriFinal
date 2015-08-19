@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 public class ValoracionDietetica {
 	@Id 
 	@Column(name="CODIGO_VALORACION_DIETETICA")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer codigoValoracionDietetica;
 	
 	@Column(name="PREPARADOR_ALIMENTOS",columnDefinition="VARCHAR(50)",nullable=false)

@@ -5,11 +5,18 @@ package com.nutricion.domain;
  * Clase de persistencia cliente
  * ORM de la clase Cliente
  */
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +28,7 @@ public class Cliente {
 /**Variables Globales Cliente*/
 	@Id 
 	@Column(name="CODIGO_CLIENTE")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigoCliente;
 	@Column(name="NOMBRE",columnDefinition="VARCHAR(50)",nullable=false)
 	private String nombre;
@@ -71,6 +78,14 @@ public class Cliente {
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="cliente")  
 	ValoracionDietetica  valoracionDietetica;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "CLIENTE_TELEFONO", 
+	joinColumns = { @JoinColumn(name = "CODIGO_CLIENTE") }, 
+			inverseJoinColumns = { @JoinColumn(name = "CODIGO_TELEFONO") })
+	
+	private Set<Telefono> telefonos = new HashSet<Telefono>(0);
+	
 	
 	public Integer getCodigoCliente() {
 		return codigoCliente;
@@ -220,5 +235,10 @@ public class Cliente {
 	public void setValoracionDietetica(ValoracionDietetica valoracionDietetica) {
 		this.valoracionDietetica = valoracionDietetica;
 	}
-	
+	public Set<Telefono> getTelefonos() {
+		return telefonos;
+	}
+	public void setTelefonos(Set<Telefono> telefonos) {
+		this.telefonos = telefonos;
+	}
 }
